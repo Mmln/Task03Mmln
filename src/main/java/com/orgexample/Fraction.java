@@ -18,10 +18,10 @@ public class Fraction implements Fractionable {
     @Mutator
     public void setDenum(int denum) {
         this.denum = denum;
-        System.out.print(" " + this + " ");
+        System.out.println(" " + this + " ");
     }
 
-    @Cache
+    @Cache(1000)
     @Override
     public double doubleValue() {
         System.out.print(" " + this + " ");
