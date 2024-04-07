@@ -49,11 +49,11 @@ public class App
         System.out.print("Point 09");
         System.out.println(String.format("%.2f",num.doubleValue()));
 
-        System.out.println("\n===== Фиксируем, что кеше 3 строки, затем проверяем содержимое и... отправляемся спать на секунду.");
+        System.out.println("\n===== Фиксируем, что кеше 3 строки, затем проверяем содержимое и... отправляемся спать на полторы секунды.");
 
         Utils.showCacheList("Show cacheList before sleeping(1500)");
         sleep(1500);
-        System.out.println("Sleep(1000)");
+        System.out.println("Sleep(1500)");
         System.out.println("\n===== Проверяем содержимое кеша...");
         Utils.showCacheList("Show cacheList after sleeping ");
 
@@ -71,7 +71,7 @@ public class App
         System.out.println(String.format("%.2f",num.doubleValue()));
         Utils.showCacheList("Show cacheList after updating keys");
 
-        System.out.println("\n===== Помещаем в кеш 2 строки, затем проверяем содержимое и... отправляемся спать на секунду.");
+        System.out.println("\n===== Помещаем в кеш 2 строки, затем проверяем содержимое и... отправляемся спать на полторы секунды.");
         System.out.print("Point 14  call num.setDenum(5), ");
         num.setDenum(5);
         System.out.print("Point 15 ");
@@ -82,7 +82,7 @@ public class App
         System.out.println(String.format("%.2f",num.doubleValue()));
         Utils.showCacheList("Show cacheList before sleeping 1500");
         sleep(1500);
-        System.out.println("Sleep(1000)");
+        System.out.println("Sleep(1500)");
         System.out.println("\n===== Выводим окончательный вариант кеша...");
         Utils.showCacheList("Show final cacheList");
 
