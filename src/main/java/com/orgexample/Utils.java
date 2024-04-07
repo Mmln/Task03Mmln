@@ -8,9 +8,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
-import static java.lang.Thread.sleep;
-
-public class Utils<T> implements InvocationHandler {
+public class Utils<T> implements InvocationHandler, Runnable {
     private T val;
     private static ConcurrentNavigableMap<Long, Double> cacheList = new ConcurrentSkipListMap<>();
     private static Long lifeTime = null;
@@ -23,25 +21,28 @@ public class Utils<T> implements InvocationHandler {
         this.val = obj;
         countProcess = 1L;
         turnOnOffThread = true;
-        cacheProcessing = new Thread(() ->
-        {
-            while(turnOnOffThread){
-                try {
-                    Process();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
+        cacheProcessing = new Thread(this);
         cacheProcessing.start();
         System.out.println("Thread cacheProcessing stated countProcess=" + countProcess);
     }
 
-    public static void setTurnOnOffThread(Boolean turnOnOffThread) {
-        Utils.turnOnOffThread = turnOnOffThread;
-        // Wait for cacheProcessing to finish
+    @Override
+    public void run(){
+        while(turnOnOffThread){
+            try {
+                synchronized(this){Process();}
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public static void setTurnOnOffThread(Boolean turnOnOffThreadSwitch) {
+        // Instuct cacheProcessing to finish
+        Utils.turnOnOffThread = turnOnOffThreadSwitch;
         if(cacheProcessing != null) {
             try {
+                // Wait for cacheProcessing to finish
                 cacheProcessing.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -60,16 +61,12 @@ public class Utils<T> implements InvocationHandler {
         return turnOnOffThread;
     }
 
-    public static Object showCacheList(String title){
+    public static void showCacheList(String title){
         System.out.println(title);
         for (Map.Entry<Long, Double> entry : cacheList.entrySet())
         {
             System.out.println("     Key=" + entry.getKey()  + ", Value=" + String.format("%.2f",entry.getValue()));
         }
-        return null;
-    }
-
-    public void Utils() {
     }
 
     public static Long getCountProcess() {
@@ -79,8 +76,6 @@ public class Utils<T> implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Method m = val.getClass().getMethod(method.getName(), method.getParameterTypes());
-
-        Annotation[] anns = m.getDeclaredAnnotations();
 
         if(m.isAnnotationPresent(Mutator.class)) {
             System.out.print("Mutator called ");
@@ -92,7 +87,7 @@ public class Utils<T> implements InvocationHandler {
             Cache anno = m.getAnnotation(Cache.class);
             if(lifeTime == null) lifeTime = (long) anno.value()*1000;
             if( Utils.cacheList.isEmpty()) {
-                // Firts fill the empty cache
+                // Fill the empty cache
                 Utils.cacheList.put(timer.nowMicro(), (Double) m.invoke(val,args));
                 System.out.print(" cacheList isEmpty doubleValue calculated and returned ");
             }
@@ -116,11 +111,8 @@ public class Utils<T> implements InvocationHandler {
 
     }
 
-    public static void Process() throws InterruptedException {
-        Long key = null;
-        //if (countProcess % 100000000 == 0) System.out.println("countProcess=" + countProcess + " lifeTime=" + lifeTime + " cacheList.size()=" + cacheList.size());
-        //sleep(5);
-        //System.out.println("Process lifeTime=" + lifeTime + " cacheList.size()=" + cacheList.size());
+    public void Process() throws InterruptedException {
+        Long key;
         if(lifeTime != null) {
             Long currentTimeInMicro = timer.nowMicro();
             for (Map.Entry<Long, Double> entry : cacheList.entrySet()) {
@@ -130,4 +122,6 @@ public class Utils<T> implements InvocationHandler {
         }
         countProcess += 1;
     }
+
 }
+

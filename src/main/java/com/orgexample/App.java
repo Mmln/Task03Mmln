@@ -1,7 +1,26 @@
 package com.orgexample;
 
 import static java.lang.Thread.sleep;
-
+/*
+TODO Сопроводительная записка.
+TODO
+TODO 1. Кеш реализован при помощи ConcurrentSkipListMap. Эти коллекции не требуют дополнительной синхронизации.
+TODO 2. Ключ кеша заполняется временем, отсчитываемым в микросекундах (класс TimerImpl);
+TODO 3. Кеш может находиться в трех состояниях:
+TODO     a) кеш пуст;
+TODO     b) кеш сброшен после вызова мутатора - есть несколько строк, но самая первая имеет ключ=0 и значение=0,
+TODO        т.к. после вызова мутатора необходимо добавить в кеш новое значение, то эта строка удаляется и добавляется
+TODO        еще одна, с новым значением кеша (такова природа коллекции ConcurrentSkipListMap);
+TODO     c) кеш в рабочем состянии - есть несколько строк, в качестве значения кеша выбирается последняя строка;
+TODO 4. Параллельный процесс очистки кеша организован в классе Utils как public void Process() и перед запуском обернут
+TODO    в блок синхронизации;
+TODO 5. Процесс очистки кеша запускается после создания экземпляра кеша в момент вызова прокси, т.е. в самом-самом начале.
+TODO 6. Внутри процесса очистки кеша крутится цикл while, прерываемый значением false переменной turnOnOffThread;
+TODO 7. Процесс очистки кеша останавливается при помощи вызова Utils.setTurnOnOffThread(false) из основного модуля
+TODO    в конце работы основного модуля.
+TODO 8. В процессе очистки кеша подсчитывается количество его вызовов. Обычно оно равно примерно 30-40 миллионам.
+TODO
+ */
 public class App
 {
     public static void main( String[] args ) throws InterruptedException {
@@ -32,8 +51,8 @@ public class App
 
         System.out.println("\n===== Фиксируем, что кеше 3 строки, затем проверяем содержимое и... отправляемся спать на секунду.");
 
-        Utils.showCacheList("Show cacheList before sleeping(1000)");
-        sleep(1000);
+        Utils.showCacheList("Show cacheList before sleeping(1500)");
+        sleep(1500);
         System.out.println("Sleep(1000)");
         System.out.println("\n===== Проверяем содержимое кеша...");
         Utils.showCacheList("Show cacheList after sleeping ");
@@ -61,8 +80,8 @@ public class App
         System.out.println(String.format("%.2f",num.doubleValue()));
         System.out.print("Point 17 ");
         System.out.println(String.format("%.2f",num.doubleValue()));
-        Utils.showCacheList("Show cacheList before sleeping 1000");
-        sleep(1000);
+        Utils.showCacheList("Show cacheList before sleeping 1500");
+        sleep(1500);
         System.out.println("Sleep(1000)");
         System.out.println("\n===== Выводим окончательный вариант кеша...");
         Utils.showCacheList("Show final cacheList");
