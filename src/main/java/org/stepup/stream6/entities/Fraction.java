@@ -1,4 +1,8 @@
-package com.orgexample;
+package org.stepup.stream6.entities;
+
+import org.stepup.stream6.annotations.Cache;
+import org.stepup.stream6.annotations.Mutator;
+import org.stepup.stream6.interfaces.Fractionable;
 
 public class Fraction implements Fractionable {
     private int num;

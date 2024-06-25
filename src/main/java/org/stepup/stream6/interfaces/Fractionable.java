@@ -1,4 +1,4 @@
-package com.orgexample;
+package org.stepup.stream6.interfaces;
 
 public interface Fractionable {
     double doubleValue();

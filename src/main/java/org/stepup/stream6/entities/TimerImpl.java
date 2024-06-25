@@ -1,4 +1,4 @@
-package com.orgexample;
+package org.stepup.stream6.entities;
 
 import java.math.BigDecimal;
 
