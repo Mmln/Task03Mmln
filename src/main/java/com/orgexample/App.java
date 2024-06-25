@@ -24,7 +24,7 @@ TODO
 public class App
 {
     public static void main( String[] args ) throws InterruptedException {
-        System.out.println( "MmlnTask_03 started..." );
+        System.out.println( "Task03Mmln started..." );
 
         Fraction fr = new Fraction(2,3);
         System.out.println("\n===== Фиксируем создание cacheList и запуск процесса обработки и очистки кеша.");
@@ -91,6 +91,6 @@ public class App
         System.out.println("Utils.getCountProcess()=" + Utils.getCountProcess());
 
         System.out.println( "" );
-        System.out.println( "MmlnTask_03 finshed..." );
+        System.out.println( "Task03Mmln finshed..." );
     }
 }
