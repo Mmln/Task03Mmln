@@ -27,10 +27,10 @@
 14. Реализованы модульные тесты;
 15. Вот протокол запуска задачи:
 
-### Task03Mmln started...
+### _Task03Mmln started..._
 
-### Фиксируем создание cacheList и запуск процесса обработки и очистки кеша.
-#### Thread cacheProcessing stated countProcess=1  
+#### _Фиксируем создание cacheList и запуск процесса обработки и очистки кеша._
+Thread cacheProcessing stated countProcess=1  
 Point 01  Fraction{num=2, denum=3}  cacheList isEmpty value calculated and returned 0.67  
 Point 02  Cache returned 0.67  
 Point 03  Cache returned 0.67  
@@ -41,48 +41,48 @@ Point 07  Cache returned 1.67
 Point 08  call num.setDenum(10), Mutator called  Fraction{num=5, denum=10}  
 Point 09 Fraction{num=5, denum=10}  chacheList is null value calculated and returned 0.50  
 
-### Фиксируем, что кеше 3 строки, затем проверяем содержимое и... отправляемся спать на полторы секунды.
-#### Show cacheList before sleeping(1500)  
+#### _Фиксируем, что кеше 3 строки, затем проверяем содержимое и... отправляемся спать на полторы секунды._
+Show cacheList before sleeping(1500)  
 Key=1719334398919357, Value=0.6666666666666666  
 Key=1719334398940410, Value=1.6666666666666667  
 Key=1719334398941621, Value=0.5  
 Sleep(1500)  
 
-### Проверяем содержимое кеша...
-#### Show cacheList after sleeping  
+#### _Проверяем содержимое кеша..._
+Show cacheList after sleeping  
 Key=1719334398941621, Value=0.5  
 
-### Проверяем, что в кеше обновляется ключ после использования кеша ...
+#### _Проверяем, что в кеше обновляется ключ после использования кеша ..._
 Point 10  Cache returned 0.50  
-#### Show cacheList after updating keys  
+Show cacheList after updating keys  
 Key=1719334400444311, Value=0.5  
 Point 11  Cache returned 0.50  
-#### Show cacheList after updating keys  
+Show cacheList after updating keys  
 Key=1719334400444955, Value=0.5  
 Point 12  Cache returned 0.50  
-#### Show cacheList after updating keys  
+Show cacheList after updating keys  
 Key=1719334400445457, Value=0.5  
 Point 13  Cache returned 0.50  
-#### Show cacheList after updating keys  
+Show cacheList after updating keys  
 Key=1719334400446057, Value=0.5  
 
-### Помещаем в кеш 2 строки, затем проверяем содержимое и... отправляемся спать на полторы секунды.
+#### _Помещаем в кеш 2 строки, затем проверяем содержимое и... отправляемся спать на полторы секунды._
 Point 14  call num.setDenum(5), Mutator called  Fraction{num=5, denum=5}  
 Point 15  Fraction{num=5, denum=5}  chacheList is null value calculated and returned 1.00  
 Point 16  Cache returned 1.00  
 Point 17  Cache returned 1.00  
-#### Show cacheList before sleeping 1500  
+Show cacheList before sleeping 1500  
 Key=1719334400446057, Value=0.5  
 Key=1719334400448618, Value=1.0  
 Sleep(1500)  
 
-### Выводим окончательный вариант кеша...
-#### Show final cacheList  
+#### _Выводим окончательный вариант кеша..._
+Show final cacheList  
 Key=1719334400448618, Value=1.0  
 
-### Фиксируем остановку процесса обработки и очистки кеша.
-#### Thread cacheProcessing finished countProcess=199579  
+#### _Фиксируем остановку процесса обработки и очистки кеша._
+Thread cacheProcessing finished countProcess=199579  
 Utils.getCountProcess()=199579  
 
-### Task03Mmln finshed...
+### _Task03Mmln finshed..._
 
