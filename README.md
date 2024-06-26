@@ -2,6 +2,8 @@
 
 #### _Внимание!!! Проект нормально загружается из GitHub в IntelliJ IDEA(Community Edition)_
 
+Вложено короткое видео, демонстрирующее работу - файл = "bandicam 2024-06-26 16-06-34-796.mp4"
+
 1.  Созданы классы Fraction, CachingHandler и Utils;
 2.  Создан интерфейс Fractionable;
 3.  Созданы аннотации @Chache и @Mutator;

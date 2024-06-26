@@ -32,7 +32,10 @@ public class CachingHandler <T> implements InvocationHandler,  Runnable {
     public void run(){
         while(turnOnOffThread){
             try {
-                synchronized(this){Process();}
+                synchronized(this){
+                    Process();
+                    cacheProcessing.sleep(10L);
+                }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -111,7 +114,6 @@ public class CachingHandler <T> implements InvocationHandler,  Runnable {
     public void Process() throws InterruptedException {
         Long key;
         if(lifeTime != null) {
-            Thread.sleep(10L);
             Long currentTimeInMicro = timer.nowMicro();
             for (Map.Entry<Long, Object> entry : cacheList.entrySet()) {
                 key = entry.getKey();
